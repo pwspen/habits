@@ -1,0 +1,23 @@
+[project]
+name = "habit-tracker"
+version = "0.1.0"
+description = "Minimal habit-tracking backend (FastAPI + SQLAlchemy)"
+requires-python = ">=3.10"
+
+# Runtime dependencies
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "pydantic>=1.10,<3.0",
+    "SQLAlchemy>=1.4",
+    "python-dateutil"
+]
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "isort",
+    "pytest"
+]
+
+[tool.uv]  # uv-specific settings (all optional; keep empty block for future tweaks)
