@@ -21,15 +21,23 @@ export default function HabitRow({
   const value = record?.value ?? habit.start_value;
   const isGood = habit.polarity === 'good';
 
-  const shade =
+  const happy =
     habit.type === 'boolean'
-      ? isGood
-        ? 'bg-green-50'
-        : 'bg-red-50'
-      : value >= habit.target
-      ? 'bg-green-50'
-      : 'bg-red-50';
+      ? Boolean(value) == isGood
+        ? true
+        : false
+      : isGood
+        ? value >= habit.target
+          ? true
+          : false
+        : value <= habit.target
+          ? true
+          : false
 
+  const shade = 
+    happy
+    ? 'bg-green-50'
+    : 'bg-red-50'
   return (
     <div
       className={clsx(
@@ -44,17 +52,17 @@ export default function HabitRow({
         <div className="flex space-x-2 mr-2">
           <button
             title="Edit"
-            className="text-blue-600 text-sm"
+            className="text-white bg-blue-600 px-2 text-md rounded"
             onClick={onEditHabit}
           >
-            ✎
+            edit
           </button>
           <button
             title="Delete"
-            className="text-red-600 text-sm"
+            className="text-white bg-blue-600 px-2 text-md rounded"
             onClick={onDeleteHabit}
           >
-            🗑
+            delete
           </button>
         </div>
       )}
@@ -65,11 +73,14 @@ export default function HabitRow({
           <button
             className={clsx(
               'w-8 h-8 rounded-full flex items-center justify-center border',
-              isGood
-                ? 'border-green-600 text-green-600'
-                : 'border-gray-300 text-gray-400',
-              value === 1 && isGood && 'bg-green-600 text-white',
-              value === 0 && !isGood && 'bg-red-600 text-white'
+
+              happy 
+                ? value === 1
+                  ? 'bg-green-600 text-white'
+                  : 'border-red-600 text-red-600'
+                : value === 1
+                  ? 'bg-red-600 text-white'
+                  : 'border-green-600 text-green-600'
             )}
             onClick={() => onRecordChange(1)}
           >
@@ -78,15 +89,18 @@ export default function HabitRow({
           <button
             className={clsx(
               'w-8 h-8 rounded-full flex items-center justify-center border ml-2',
-              !isGood
-                ? 'border-red-600 text-red-600'
-                : 'border-gray-300 text-gray-400',
-              value === 1 && !isGood && 'bg-red-600 text-white',
-              value === 0 && isGood && 'bg-green-600 text-white'
+
+              happy 
+                ? value === 0
+                  ? 'bg-green-600 text-white'
+                  : 'border-red-600 text-red-600'
+                : value === 0
+                  ? 'bg-red-600 text-white'
+                  : 'border-green-600 text-green-600'
             )}
             onClick={() => onRecordChange(0)}
           >
-            ✗
+            X
           </button>
         </>
       ) : (

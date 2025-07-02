@@ -2,6 +2,10 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import engine, Base
 from routers import habits, records
+from loguru import logger
+
+logger.add("app.log", rotation="10 MB")
+
 
 Base.metadata.create_all(bind=engine)
 

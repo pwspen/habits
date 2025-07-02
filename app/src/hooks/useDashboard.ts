@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { type Dashboard, type Habit, type Record } from '../types';
+import { type Dashboard } from '../types';
 import { fetchDashboard } from '../api';
 
 export default function useDashboard() {

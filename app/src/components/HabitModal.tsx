@@ -28,11 +28,11 @@ export default function HabitModal({ initial, onSave, onClose }: Props) {
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
       <div className="bg-white rounded shadow-lg w-80 p-6">
         <h2 className="font-medium mb-4">
-          {initial ? 'Edit Habit' : 'New Habit'}
+          {initial ? 'edit habit' : 'new habit'}
         </h2>
 
         <label className="block mb-2">
-          <span className="text-sm">Name</span>
+          <span className="text-sm">name</span>
           <input
             className="w-full border rounded px-2 py-1"
             value={form.name}
@@ -42,32 +42,32 @@ export default function HabitModal({ initial, onSave, onClose }: Props) {
 
         <div className="flex space-x-2 mb-2">
           <label className="flex-1">
-            <span className="text-sm">Type</span>
+            <span className="text-sm">type</span>
             <select
               className="w-full border rounded px-2 py-1"
               value={form.type}
               onChange={e => handleChange('type', e.target.value as HabitType)}
             >
-              <option value="boolean">Boolean</option>
-              <option value="numeric">Numeric</option>
+              <option value="boolean">yes / no</option>
+              <option value="numeric">number</option>
             </select>
           </label>
           <label className="flex-1">
-            <span className="text-sm">Polarity</span>
+            <span className="text-sm">polarity</span>
             <select
               className="w-full border rounded px-2 py-1"
               value={form.polarity}
               onChange={e => handleChange('polarity', e.target.value as Polarity)}
             >
-              <option value="good">Good</option>
-              <option value="bad">Bad</option>
+              <option value="good">good</option>
+              <option value="bad">bad</option>
             </select>
           </label>
         </div>
 
         <div className="flex space-x-2 mb-2">
           <label className="flex-1">
-            <span className="text-sm">Start</span>
+            <span className="text-sm">initial value</span>
             <input
               type="number"
               className="w-full border rounded px-2 py-1"
@@ -76,7 +76,7 @@ export default function HabitModal({ initial, onSave, onClose }: Props) {
             />
           </label>
           <label className="flex-1">
-            <span className="text-sm">Target</span>
+            <span className="text-sm">goal</span>
             <input
               type="number"
               className="w-full border rounded px-2 py-1"
@@ -87,16 +87,16 @@ export default function HabitModal({ initial, onSave, onClose }: Props) {
         </div>
 
         <label className="block mb-4">
-          <span className="text-sm">Period</span>
+          <span className="text-sm">period</span>
           <select
             className="w-full border rounded px-2 py-1"
             value={form.period}
             onChange={e => handleChange('period', e.target.value as Period)}
           >
-            <option value="day">Day</option>
-            <option value="week">Week</option>
-            <option value="month">Month</option>
-            <option value="year">Year</option>
+            <option value="day">day</option>
+            <option value="week">week</option>
+            <option value="month">month</option>
+            <option value="year">year</option>
           </select>
         </label>
 
@@ -105,13 +105,13 @@ export default function HabitModal({ initial, onSave, onClose }: Props) {
             className="px-3 py-1 text-sm bg-gray-200 rounded"
             onClick={onClose}
           >
-            Cancel
+            cancel
           </button>
           <button
             className="px-3 py-1 text-sm bg-blue-600 text-white rounded"
             onClick={() => onSave(form)}
           >
-            Save
+            save
           </button>
         </div>
       </div>

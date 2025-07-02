@@ -1,14 +1,20 @@
 from sqlalchemy.orm import Session
 from datetime import date
 import models, schemas
+from loguru import logger
 
 def get_dashboard(db: Session, user_id: int) -> schemas.DashboardOut:
-    habits = db.query(models.Habit).filter_by(user_id=user_id).all()
+    habits = (db.query(models.Habit)
+              .filter(models.Habit.user_id == user_id, 
+                     models.Habit.active == True)
+              .all())
+        
     records = (db.query(models.HabitRecord)
-    .join(models.Habit)
-    .filter(models.Habit.user_id==user_id,
-    models.HabitRecord.locked==False)
-    .all())
+               .join(models.Habit)
+               .filter(models.Habit.user_id == user_id,
+                      models.HabitRecord.locked == False)
+               .all())
+    
     return schemas.DashboardOut(habits=habits, records=records)
 
 def create_habit(db: Session, user_id: int, habit: schemas.HabitCreate):
@@ -29,7 +35,9 @@ def create_habit(db: Session, user_id: int, habit: schemas.HabitCreate):
 
 def update_habit(db: Session, habit_id: int, habit: schemas.HabitCreate):
     db_habit = db.query(models.Habit).get(habit_id)
+    logger.info(f"Update habit")
     for k,v in habit.dict().items():
+        logger.info(k, v)
         setattr(db_habit, k, v)
     db.commit()
     db.refresh(db_habit)
@@ -37,6 +45,7 @@ def update_habit(db: Session, habit_id: int, habit: schemas.HabitCreate):
 
 def update_record(db: Session, record_id: int, value: int):
     rec = db.query(models.HabitRecord).get(record_id)
+    logger.info(f"Update record: {value}")
     if not rec:
         return None
     if rec.locked:
